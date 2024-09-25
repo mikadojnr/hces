@@ -1,0 +1,42 @@
+<!-- app/templates/result.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container pt-5">
+    <h1 class="text-center">Diagnosis Result</h1>
+
+    <div class="alert alert-info mt-4">
+        <p>Hello, <strong>{{ user.name.capitalize() }}</strong></p>
+        <p><strong>Illness:</strong> {{ history.diagnosis.capitalize() }}</p>
+        <p><strong>Symptoms Provided:</strong> {{ history.symptoms }}</p>
+        <p><strong>Recommendations:</strong> {{ history.treatment }}</p>
+    </div>
+
+    <div class="mt-4">
+        <h5>Diagnosis Probabilities:</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Illness</th>
+                    <th>Probability (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for illness, probability in probabilities.items() %}
+                <tr>
+                    <td>{{ illness.capitalize() }}</td>
+                    <td>{{ (probability * 100) | round(2) }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Ensure the 'url_for' uses the correct route name -->
+    <div class="text-center mt-4 mb-5">
+        <a href="{{ url_for('routes.diagnose', user_id=history.user_id) }}" class="btn btn-primary">Back to Diagnose</a>
+        <a href="{{ url_for('routes.dashboard', user_id=history.user_id) }}" class="btn btn-info">Patient Dashboard</a>
+    </div>
+</div>
+
+{% endblock %}

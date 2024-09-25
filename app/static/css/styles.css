@@ -1,0 +1,41 @@
+/* app/static/css/styles.css */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    color: white !important;
+    margin: 0;
+}
+
+.card {
+    margin-top: 20px;
+}
+
+.font-weight-bolder {
+    font-weight: bolder;
+}
+
+
+
+.homepage {
+    background-image: url(../images/bg.png) !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage .jumbotron {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(10px);
+}
+

@@ -1,0 +1,33 @@
+<!-- app/templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="homepage">
+    <div class="container">
+        <div class="jumbotron text-center" style="background-color: rgba(255, 255, 255, .5)">
+            <h1 class="display-4">Welcome to the Expert System for Primary Healthcare</h1>
+            <p class="lead">This system assists in the diagnosis and treatment of common illnesses like malaria, typhoid, and fever.</p>
+            <hr class="my-4">
+        
+            <!-- Form to enter patient ID -->
+            <div class="text-center">
+                
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+        
+                    <div class="form-group">
+                        {{ form.patient_id.label }}
+                        {{ form.patient_id(class="form-control") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+            <hr class="my-4">
+        
+        
+            <a class="btn btn-primary btn-lg" href="{{ url_for('routes.register') }}" role="button">Register New Patient</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

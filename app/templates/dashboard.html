@@ -1,0 +1,83 @@
+<!-- app/templates/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container pt-5">
+    <div class="card">
+        <div class="card-header">
+            Welcome, <strong>{{ user.name }}</strong>
+        </div>
+        <div class="card-body">
+            <p><strong>Paitient ID:</strong> {{ user.id }}</p>
+            <p><strong>Age:</strong> {{ age }}</p>
+            <p><strong>Gender:</strong> {{ user.gender }}</p>
+            <a href="{{ url_for('routes.diagnose', user_id=user.id) }}" class="btn btn-primary mt-3">Diagnose New Symptoms</a>
+            <hr>
+            
+            <h3>Diagnosis History</h3>
+            <div id="history-container">
+                <table class="table table-striped" id="history-table">
+                    <thead>
+                        <div class="pagination mt-3 justify-content-center">
+                        <tr>
+                            <th>Date</th>
+                            <th>Symptoms</th>
+                            <th>Diagnosis</th>
+                            <th>Recommendations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- History entries will be injected here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination mt-3 justify-content-center">
+                <button id="prev-btn" class="btn btn-secondary mr-1" onclick="changePage(-1)" disabled>&laquo;</button>
+                <button id="next-btn" class="btn btn-secondary ml-1" onclick="changePage(1)">&raquo;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript for Pagination
+    document.addEventListener('DOMContentLoaded', function() {
+        // Correctly serialize the Python data into a JSON-compatible format for JavaScript
+        const history = {{ history|tojson|safe }};
+        const itemsPerPage = 5;
+        let currentPage = 1;
+        const totalPages = Math.ceil(history.length / itemsPerPage);
+
+        function renderTable(page) {
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const slicedHistory = history.slice(start, end);
+            const tbody = document.querySelector('#history-table tbody');
+            tbody.innerHTML = '';
+
+            slicedHistory.forEach(entry => {
+                const row = `<tr>
+                    <td>${new Date(entry.timestamp).toLocaleDateString()}</td>
+                    <td>${entry.symptoms}</td>
+                    <td>${entry.diagnosis}</td>
+                    <td>${entry.treatment}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+
+            // Enable/disable pagination buttons
+            document.getElementById('prev-btn').disabled = (page === 1);
+            document.getElementById('next-btn').disabled = (page === totalPages);
+        }
+
+        function changePage(direction) {
+            currentPage += direction;
+            renderTable(currentPage);
+        }
+
+        renderTable(currentPage);
+
+        window.changePage = changePage; // Expose function to global scope
+    });
+</script>
+{% endblock %}

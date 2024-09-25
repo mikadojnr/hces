@@ -1,0 +1,16 @@
+symptom,malaria,typhoid,fever
+fever,0.8,0.4,0.9
+chills,0.7,0.3,0.2
+headache,0.6,0.5,0.7
+nausea,0.5,0.6,0.4
+fatigue,0.6,0.7,0.3
+muscle pain,0.7,0.5,0.4
+abdominal pain,0.4,0.8,0.2
+diarrhea,0.3,0.7,0.1
+vomiting,0.5,0.6,0.3
+cough,0.2,0.4,0.5
+loss of appetite,0.5,0.7,0.2
+sweating,0.7,0.3,0.6
+joint pain,0.6,0.4,0.3
+dizziness,0.5,0.6,0.3
+rash,0.2,0.1,0.4
